@@ -1,5 +1,6 @@
 from student import Student
 import json
+import csv
 
 class StudentService:
 
@@ -24,11 +25,19 @@ class StudentService:
         print("Student not found.")
 
     def export(self, format, file_path):
-        if format == "json":
+        if format == "csv":
+            with open(file_path, mode="w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["id", "nom"])
+                for student in self.students:
+                    writer.writerow([student.id, student.nom])
+            print("Exported to CSV.")
+
+        elif format == "json":
             data = [{"id": s.id, "nom": s.nom} for s in self.students]
             with open(file_path, "w") as file:
                 json.dump(data, file)
             print("Exported to JSON.")
-        else:
-            print("Unsupported format.")
 
+        else:
+            print("Unsupported format")

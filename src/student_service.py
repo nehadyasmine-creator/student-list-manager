@@ -1,5 +1,5 @@
 from student import Student
-
+import json
 
 class StudentService:
 
@@ -22,3 +22,13 @@ class StudentService:
                 print(f"Student with id '{student_id}' removed.")
                 return
         print("Student not found.")
+
+    def export(self, format, file_path):
+        if format == "json":
+            data = [{"id": s.id, "nom": s.nom} for s in self.students]
+            with open(file_path, "w") as file:
+                json.dump(data, file)
+            print("Exported to JSON.")
+        else:
+            print("Unsupported format.")
+

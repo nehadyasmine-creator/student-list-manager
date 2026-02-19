@@ -26,11 +26,17 @@ def main():
             if len(parts) == 2:
                 service.removeStudent(parts[1])
 
+        elif command.startswith("export"):
+            parts = command.split()
+            if len(parts) == 3:
+                service.export(parts[1], parts[2])
+
         elif command == "help":
             print("Available commands:")
             print("  list")
             print("  add <id> <name>")
             print("  remove <id>")
+            print("  export <format> <file_path>")
             print("  help")
             print("  quit")
 
